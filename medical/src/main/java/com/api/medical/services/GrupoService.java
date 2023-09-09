@@ -29,6 +29,10 @@ public class GrupoService {
         return grupoRepository.findById(id).orElse(null);
     }
 
+    public List<Grupo> buscarPorNombre(String nombreGrupo) {
+        return grupoRepository.findByNombre(nombreGrupo);
+    }
+
     public Grupo actualizarGrupo(Long id, Grupo grupo) {
         Grupo grupoExistente = grupoRepository.findById(id).orElse(null);
         if (grupoExistente != null) {

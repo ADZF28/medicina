@@ -34,6 +34,12 @@ public class GrupoController {
         return new ResponseEntity<>(grupo, HttpStatus.OK);
     }
 
+    @PostMapping("/buscarNombre")
+    public ResponseEntity<List<Grupo>> obtenerGrupoPorNombre(@RequestParam String nombre) {
+        List<Grupo> grupo = grupoService.buscarPorNombre(nombre);
+        return new ResponseEntity<>(grupo, HttpStatus.OK);
+    }
+
     @PostMapping("/guardar")
     public ResponseEntity<Grupo> guardarGrupo(@RequestBody Grupo grupo) {
         Grupo nuevoGrupo = grupoService.guardarGrupo(grupo);

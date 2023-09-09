@@ -34,6 +34,12 @@ public class TipoController {
         return new ResponseEntity<>(tipo, HttpStatus.OK);
     }
 
+    @GetMapping("/buscarNombre")
+    public ResponseEntity<List<Tipo>> obtenerTipoPorNombre(@RequestParam String nombre) {
+        List<Tipo> tipo = tipoService.buscarPorNombre(nombre);
+        return new ResponseEntity<>(tipo, HttpStatus.OK);
+    }
+
     @PostMapping("/guardar")
     public ResponseEntity<Tipo> guardarTipo(@RequestBody Tipo tipo) {
         Tipo nuevoTipo = tipoService.guardarTipo(tipo);

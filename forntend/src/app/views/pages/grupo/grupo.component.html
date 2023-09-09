@@ -29,6 +29,22 @@
 <br>
 <br>
 <h1>Datos del grupo</h1>
+
+<form (ngSubmit)="obtenerGruposFiltro()" [gutter]="3"
+      cForm cRow>
+<c-col [md]="6">
+  <label cLabel for="validationCustom03B">Nombre del grupo</label>
+  <input cFormControl id="validationCustom03B" type="text" name="nombre" [(ngModel)]="nombre"/>
+</c-col>
+<c-col [xs]="12">
+  <button cButton class="me-1" color="primary" type="submit">
+    Filtrar
+  </button>
+  <button (click)="obtenerGrupos()" cButton color="secondary" type="reset">
+    Limpiar
+  </button>
+</c-col>
+</form>
 <table cTable>
   <thead>
   <tr>
@@ -40,8 +56,11 @@
   <tr [cTableActive]="true" *ngFor="let item of items | paginate: { itemsPerPage: pageSize, currentPage: p }">
     <td>{{item.nombre}}</td>
     <td>
-      <button (click)="eliminar(item.idGrupo)" cButton color="danger" type="submit">
+      <button (click)="eliminar(item.idGrupo)" cButton color="danger" type="submit" style="margin-right: 15px;">
         Eliminar
+      </button>
+      <button (click)="Cargar(item)" cButton color="primary" type="submit" >
+        Editar
       </button>
     </td>
   </tr>

@@ -29,6 +29,10 @@ public class TipoService {
         return tipoRepository.findById(id).orElse(null);
     }
 
+    public List<Tipo> buscarPorNombre(String nombreTipo) {
+        return tipoRepository.findByNombre(nombreTipo);
+    }
+
     public Tipo actualizarTipo(Long id, Tipo tipo) {
         Tipo tipoExistente = tipoRepository.findById(id).orElse(null);
         if (tipoExistente != null) {

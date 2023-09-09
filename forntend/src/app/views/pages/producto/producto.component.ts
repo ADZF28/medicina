@@ -24,6 +24,7 @@ export class ProductoComponent {
   visible = false;
   percentage = 0;
   visibleAlert = true;
+  estado: number = 0;
 
   //VAriables para post
   nombre_producto: string = ''; grupo: string = ''; tipo: string = ''; stock: number = 0; cantidad: number = 0;
@@ -106,6 +107,48 @@ export class ProductoComponent {
         console.log(error);
       });
      
+  }
+
+  cancelar(){
+    this.estado = 0;
+    this.limpiar();
+  }
+
+  EditarProducto(){
+    let id = localStorage.getItem("id");
+    let data={
+      "grupo": this.grupo,
+      "tipo": this.tipo,
+      "nombre": this.nombre_producto,
+      "stock": this.stock,
+      "cantidadStock": this.cantidad,
+      "observacion": this.observacion,
+      "fechaVencimiento": this.fecha
+    }
+    this.service.EditarProductos(id, data).then(response =>{
+      if(response != null){
+        this.estado = 0;
+        this.limpiar();
+        this.toggleToast();
+        this.obtenerProductos();
+      }
+      }).catch(error =>{
+        console.log(error);
+      });
+     
+  }
+
+  Cargar(item:any){
+    this.estado = 1;
+    localStorage.setItem("id", item.idProducto);     
+    this.grupo = item.grupo;
+    this.tipo = item.tipo;
+    this.nombre_producto = item.nombre;
+    this.stock = item.stock;
+    this.cantidad = item.cantidadStock;
+    this.observacion = item.observacion;
+    const f = new Date(item.fechaVencimiento); 
+    this.fecha = f;
   }
 
   limpiar(){
