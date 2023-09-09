@@ -71,13 +71,13 @@
 <c-col [md]="3">
   <label cLabel for="validationCustom04B">Grupos</label>
   <select cSelect id="validationCustom04B" name="grupoB" [(ngModel)]="grupoB">
-    <option *ngFor="let grupo of grupos" [value]="grupo.nombre_grupo">{{ grupo.nombre_grupo }}</option>
+    <option *ngFor="let grupo of grupos" [value]="grupo.nombre">{{ grupo.nombre }}</option>
   </select>
 </c-col>
 <c-col [md]="3">
   <label cLabel for="validationCustom05B">Tipos</label>
   <select cSelect id="validationCustom05B" name="tipoB" [(ngModel)]="tipoB">
-    <option *ngFor="let tipo of tipos" [value]="tipo.nombre_tipo">{{ tipo.nombre_tipo }}</option>
+    <option *ngFor="let tipo of tipos" [value]="tipo.nombre">{{ tipo.nombre }}</option>
   </select>
 </c-col>
 <c-col [xs]="12">

@@ -98,6 +98,7 @@ export class ProductoComponent {
     }
     this.service.IngresarProductos(data).then(response =>{
       if(response != null){
+        this.limpiar();
         this.toggleToast();
         this.obtenerProductos();
       }
@@ -105,6 +106,17 @@ export class ProductoComponent {
         console.log(error);
       });
      
+  }
+
+  limpiar(){
+    this.grupo = "";
+    this.tipo = "";
+    this.nombre_producto = "";
+    this.stock = 0;
+    this.cantidad = 0; 
+    this.observacion = "";
+    this.fecha = new Date();
+    this.onReset1();
   }
 
   obtenerProductosFiltro(){
