@@ -123,7 +123,7 @@ public class ProductoService {
         Producto producto = productoRepository.findById(id).orElse(null);
 
         if (producto != null) {
-            producto.setCantidadStock(producto.getCantidadStock() + cantidad);
+            producto.setStock(producto.getStock() + cantidad);
             productoRepository.save(producto);
             return true;
         }
@@ -138,11 +138,11 @@ public class ProductoService {
             return 1;
         }
 
-        if (producto.getCantidadStock() <= 0 || producto.getCantidadStock() == 0) {
+        if (producto.getStock() <= 0 || producto.getStock() == 0) {
             return 2;
         }
 
-        producto.setCantidadStock(producto.getCantidadStock() - cantidad);
+        producto.setStock(producto.getStock() - cantidad);
         productoRepository.save(producto);
         return 3;
 

@@ -99,7 +99,8 @@
 <table cTable>
   <thead>
   <tr>
-    <th scope="col">Cantidad</th>
+    <th scope="col">Presentación(UN)</th>
+    <th scope="col">Stock/Cajas</th>
     <th scope="col">Producto</th>
     <th scope="col">Grupos</th>
     <th scope="col">Tipo</th>
@@ -110,6 +111,7 @@
   <tbody>
   <tr [cTableActive]="true" *ngFor="let item of items | paginate: { itemsPerPage: pageSize, currentPage: p }">
     <td>{{item.cantidadStock}}</td>
+    <td>{{item.stock}}</td>
     <td>{{item.nombre}}</td>
     <td>{{item.grupo}}</td>
     <td>{{item.tipo}}</td>
