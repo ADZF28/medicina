@@ -196,5 +196,32 @@ export class ServiciosService {
     });
   }
 
+  EditarTipo(id:any, data:any){
+    let  url = 'http://localhost:8000/tipos/actualizar/'+ id;
+    return new Promise ((resolve, reject) => {
+      this.http.put(url,data).subscribe(res => {
+        resolve(res);{
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  FiltrarTipo(data:any) {
+    debugger
+    let  url = 'http://localhost:8000/tipos/buscarNombre';
+    var formData = new FormData();
+    formData.append('nombre', data.nombre);
+    return new Promise ((resolve, reject) => {
+      this.http.post(url, formData ).subscribe(res => {
+        resolve(res);{
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
 
 }
