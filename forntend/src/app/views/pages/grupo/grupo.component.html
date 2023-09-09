@@ -17,11 +17,18 @@
     <c-form-feedback [valid]="false">Por favor proporcione un nombre.</c-form-feedback>
   </c-col>
   <c-col [xs]="12">
-    <button cButton class="me-1" color="primary" type="submit" [disabled]="!customStylesForm.valid">
+    <button cButton class="me-1" color="primary" type="submit" [disabled]="!customStylesForm.valid" *ngIf="estado === 0">
       Guardar
     </button>
-    <button (click)="onReset1()" cButton color="secondary" type="reset">
+    <button (click)="onReset1()" cButton color="secondary" type="reset" *ngIf="estado === 0">
       Limpiar
+    </button>
+
+    <button cButton class="me-1" (click)="EditarGrupo()" color="primary" type="button" [disabled]="!customStylesForm.valid" *ngIf="estado === 1">
+      Editar
+    </button>
+    <button (click)="cancelar()" cButton color="secondary" type="button" *ngIf="estado === 1">
+      Cancelar
     </button>
   </c-col>
 </form>

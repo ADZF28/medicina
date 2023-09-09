@@ -24,6 +24,8 @@ export class GrupoComponent {
   percentage = 0;
   visibleAlert = true;
   grupo: string = ''; 
+  nombre: string = ''; 
+  estado: number = 0;
   
   onVisibleChangeAlert(eventValue: boolean) {
     this.visibleAlert = eventValue;
@@ -57,6 +59,53 @@ export class GrupoComponent {
     }).catch(error =>{
       console.log(error);
     });
+  }
+
+  obtenerGruposFiltro(){
+    let dataB = {
+      "nombre": this.nombre,
+    }
+    this.service.FiltrarGrupo(dataB).then(data =>{
+      this.items = data;
+      console.log("DATOS obtenerProductosBuscar: ", data)
+    }).catch(error =>{
+      console.log(error);
+    });
+  }
+
+  Cargar(item:any){
+    this.estado = 1;
+    localStorage.setItem("id", item.idGrupo);     
+    this.grupo = item.nombre;
+  }
+
+  cancelar(){
+    this.estado = 0;
+    this.limpiar();
+  }
+
+
+  limpiar(){
+    this.grupo = "";
+    this.onReset1();
+  }
+
+  EditarGrupo(){
+    let id = localStorage.getItem("id");
+    let dataB = {
+      "nombre": this.grupo,
+    }
+    this.service.EditarGrupo(id, dataB).then(response =>{
+      if(response != null){
+        this.estado = 0;
+        this.limpiar();
+        this.obtenerGrupos();
+        this.toggleToast();
+      }
+      }).catch(error =>{
+        console.log(error);
+      });
+     
   }
 
   IngresarGrupo(){
