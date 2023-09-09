@@ -24,6 +24,8 @@ export class TipoComponent {
   percentage = 0;
   visibleAlert = true;
   tipo: string = ''; 
+  estado: number = 0;
+  nombre: string = '';
   
   onVisibleChangeAlert(eventValue: boolean) {
     this.visibleAlert = eventValue;
@@ -57,6 +59,53 @@ export class TipoComponent {
     }).catch(error =>{
       console.log(error);
     });
+  }
+
+  obtenerTiposFiltro(){
+    let dataB = {
+      "nombre": this.nombre,
+    }
+    this.service.FiltrarTipo(dataB).then(data =>{
+      this.items = data;
+      console.log("DATOS obtenerTiposFiltro: ", data)
+    }).catch(error =>{
+      console.log(error);
+    });
+  }
+
+  Cargar(item:any){
+    this.estado = 1;
+    localStorage.setItem("id", item.idTipo);     
+    this.tipo = item.nombre;
+  }
+
+  cancelar(){
+    this.estado = 0;
+    this.limpiar();
+  }
+
+
+  limpiar(){
+    this.tipo = "";
+    this.onReset1();
+  }
+
+  EditarTipo(){
+    let id = localStorage.getItem("id");
+    let dataB = {
+      "nombre": this.tipo,
+    }
+    this.service.EditarTipo(id, dataB).then(response =>{
+      if(response != null){
+        this.estado = 0;
+        this.limpiar();
+        this.obtenerTipos();
+        this.toggleToast();
+      }
+      }).catch(error =>{
+        console.log(error);
+      });
+     
   }
 
   IngresarTipo(){
