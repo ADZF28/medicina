@@ -1,0 +1,145 @@
+<c-alert color="success"
+        (visibleChange)="onVisibleChange($event)"
+        [visible]="visible"
+        dismissible>Dato guardado correctamente!</c-alert>
+<form #customStylesForm="ngForm"
+      (ngSubmit)="onSubmit1()"
+      [gutter]="3"
+      [validated]="customStylesValidated"
+      novalidate
+      cForm cRow
+      class="needs-validation"
+>
+  <c-col [md]="6">
+    <label cLabel for="validationCustom03">Nombre del producto</label>
+    <input cFormControl id="validationCustom03" required type="text" name="nombre_producto" [(ngModel)]="nombre_producto"/>
+    <c-form-feedback [valid]="false">Por favor proporcione un nombre.</c-form-feedback>
+  </c-col>
+  <c-col [md]="3">
+    <label cLabel for="validationCustom04">Grupos</label>
+    <select cSelect id="validationCustom04" required name="grupo" [(ngModel)]="grupo">
+      <option *ngFor="let grupo of grupos" [value]="grupo.nombre">{{ grupo.nombre }}</option>
+    </select>
+    <c-form-feedback [valid]="false">Por favor seleccione un grupo.</c-form-feedback>
+  </c-col>
+  <c-col [md]="3">
+    <label cLabel for="validationCustom05">Tipos</label>
+    <select cSelect id="validationCustom05" required name="tipo" [(ngModel)]="tipo">
+      <option *ngFor="let tipo of tipos" [value]="tipo.nombre">{{ tipo.nombre }}</option>
+    </select>
+    <c-form-feedback [valid]="false">Por favor seleccione un tipo.</c-form-feedback>
+  </c-col>
+  <c-col [md]="3">
+    <label cLabel for="validationCustom01">stock</label>
+    <input cFormControl id="validationCustom01" required type="number" name="stock" [(ngModel)]="stock" />
+    <c-form-feedback [valid]="false">Por favor proporcione un stock</c-form-feedback>
+  </c-col>
+  <c-col [md]="3">
+    <label cLabel for="validationCustom02">Cantidad</label>
+    <input cFormControl id="validationCustom02" required type="number" name="cantidad" [(ngModel)]="cantidad"/>
+    <c-form-feedback [valid]="false">Por favor proporcione una cantidad</c-form-feedback>
+  </c-col>
+  <c-col [md]="3">
+    <label cLabel for="validationCustom06">Observacion</label>
+    <input cFormControl id="validationCustom06" required type="text" name="observacion" [(ngModel)]="observacion"/>
+    <c-form-feedback [valid]="false">Por favor proporcione una Observación</c-form-feedback>
+  </c-col>
+  <c-col [md]="3">
+    <label cLabel for="validationCustom07">Fecha</label>
+    <input cFormControl id="validationCustom07" required type="date" name="fecha" [(ngModel)]="fecha" />
+    <c-form-feedback [valid]="false">Por favor proporcione una fecha</c-form-feedback>
+  </c-col>
+  <c-col [xs]="12">
+    <button cButton class="me-1" color="primary" type="submit" [disabled]="!customStylesForm.valid">
+      Guardar
+    </button>
+    <button (click)="onReset1()" cButton color="secondary" type="reset">
+      Limpiar
+    </button>
+  </c-col>
+</form>
+
+<br>
+<br>
+<h1>Datos de los productos</h1>
+<form (ngSubmit)="obtenerProductosFiltro()" [gutter]="3"
+      cForm cRow>
+<c-col [md]="6">
+  <label cLabel for="validationCustom03B">Nombre del producto</label>
+  <input cFormControl id="validationCustom03B" type="text" name="nombre_productoB" [(ngModel)]="nombre_productoB"/>
+</c-col>
+<c-col [md]="3">
+  <label cLabel for="validationCustom04B">Grupos</label>
+  <select cSelect id="validationCustom04B" name="grupoB" [(ngModel)]="grupoB">
+    <option *ngFor="let grupo of grupos" [value]="grupo.nombre_grupo">{{ grupo.nombre_grupo }}</option>
+  </select>
+</c-col>
+<c-col [md]="3">
+  <label cLabel for="validationCustom05B">Tipos</label>
+  <select cSelect id="validationCustom05B" name="tipoB" [(ngModel)]="tipoB">
+    <option *ngFor="let tipo of tipos" [value]="tipo.nombre_tipo">{{ tipo.nombre_tipo }}</option>
+  </select>
+</c-col>
+<c-col [xs]="12">
+  <button cButton class="me-1" color="primary" type="submit">
+    Filtrar
+  </button>
+  <button (click)="obtenerProductos()" cButton color="secondary" type="reset">
+    Limpiar
+  </button>
+</c-col>
+</form>
+<table cTable>
+  <thead>
+  <tr>
+    <th scope="col">Cantidad</th>
+    <th scope="col">Producto</th>
+    <th scope="col">Grupos</th>
+    <th scope="col">Tipo</th>
+    <th scope="col">Observación</th>
+    <th scope="col">Acciones</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr [cTableActive]="true" *ngFor="let item of items | paginate: { itemsPerPage: pageSize, currentPage: p }">
+    <td>{{item.cantidadStock}}</td>
+    <td>{{item.nombre}}</td>
+    <td>{{item.grupo}}</td>
+    <td>{{item.tipo}}</td>
+    <td>{{item.observacion}}</td>
+    <td>
+      <button (click)="sumar(item.idProducto)" cButton color="success" type="submit" style="margin-right: 15px;">
+        Sumar
+      </button>
+      <button (click)="restar(item.idProducto)" cButton color="warning" type="submit" style="margin-right: 15px;">
+        Restar
+      </button>
+      <button (click)="eliminar(item.idProducto)" cButton color="danger" type="submit">
+        Eliminar
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+<pagination-controls style="text-align: center;" (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
+<c-toaster [placement]="position" class="p-3" position="fixed">
+  <c-toast
+    (timer)="onTimerChange($event)"
+    (visibleChange)="onVisibleChange($event)"
+    [visible]="visible">
+    <c-toast-header>
+      <toast-sample-icon></toast-sample-icon>
+      El producto se esta guardando
+    </c-toast-header>
+    <c-toast-body>
+      <p>Guardando...</p>
+      <c-progress thin>
+        <c-progress-bar [value]="percentage"></c-progress-bar>
+      </c-progress>
+    </c-toast-body>
+  </c-toast>
+</c-toaster>
+
